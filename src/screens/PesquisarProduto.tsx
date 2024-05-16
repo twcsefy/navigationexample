@@ -1,103 +1,105 @@
-import React from "react";
+import React, { forwardRef } from "react";
 import { FlatList, Image, StatusBar, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import Footer from "../components/Footer";
 import Head from "../components/Head";
-
-interface Produto {
+import Footer from "../components/Footer";
+interface Produto{
     id: number;
     nome: string;
     ingredientes: string;
     preco: string;
-    imagem: string
+    imagem:string;
+
 }
 
-
 function PesquisaProduto(): React.JSX.Element {
-
-    const produtos: Produto[] = [
+    const produtos: Produto[]= [
         {
-            id: 1,
-            nome: 'HotDog',
-            ingredientes: 'Pão, Batata palha, Molho ...',
+            id:1,
+            nome: 'hotDog',
+            ingredientes:'Pão, batata,purê',
             preco: '10.99',
             imagem: require('../assets/images/hamburger.png')
         },
+
         {
-        id: 2,
-        nome: 'HotDogi',
-        ingredientes: 'Pão, Batata palha, Molho ...',
-        preco: '20.99',
-        imagem: require('../assets/images/hamburger.png')
+            id:2,
+            nome: 'hotDog 2',
+            ingredientes:'Pão, batata,purê',
+            preco: '19.99',
+            imagem: require('../assets/images/hamburger.png')
         },
+
     ]
 
-    const renderItem = ({ item }: { item: Produto }) => {
+    const renderItem = ({item}: {item:Produto}) => {
         return (
-            <TouchableOpacity style={styles.menuItem}>
-              <Image source={require('../assets/images/hamburger.png')}
-              style={styles.image}/>
-                <View style={styles.ItemDetails}>
+            <TouchableOpacity>
+                <Image source={require('../assets/images/hamburger.png')}/>
+                <View>
                     <Text style={styles.name}>{item.nome}</Text>
                     <Text style={styles.description}>{item.ingredientes}</Text>
                     <Text style={styles.price}>{item.preco}</Text>
                 </View>
-            </TouchableOpacity> 
+            </TouchableOpacity>
         );
     }
 
     return (
-        <View style={styles.container}>
-            <StatusBar backgroundColor="red" barStyle="light-content"/>
-            <Head/>
-            <FlatList
-            data={produtos}
-            renderItem={renderItem}
-            keyExtractor={(item)=>item.id ? item.id.toString() : Math.random().toString()}
-            contentContainerStyle={styles.menuList}
-            />
-            <Footer/>
+        <View>
+             <StatusBar backgroundColor="pink" barStyle="light-content"/>
+             <Head/>
+             <FlatList
+             data={produtos}
+             renderItem={renderItem}
+             keyExtractor={(item) => item.id ? item.id.toString() : Math.random().toString ()}
+             contentContainerStyle={styles.menuList}
+             />
+             <Footer/>
         </View>
     );
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1
+
+    container:{
+        flex:1
     },
-    menuItem: {
+    menuItem:{
         flexDirection: 'row',
         alignItems: 'center',
         padding: 10,
-        borderBottomWidth: 1,
+        borderBottomWidth:1,
         borderBottomColor: '#ccc',
-        marginTop: 10
+        marginTop:10
     },
-    image: {
-        width: 80,
-        height: 80,
-        resizeMode: 'cover',
+    image:{
+        width:100,
+        height:100,
+        resizeMode:'cover',
         borderRadius: 5
     },
-    ItemDetails: {
-        marginLeft: 10,
+    itemDetails:{
+        marginLeft:10,
         flex: 1
     },
-    name: {
-        fontSize: 16,
+    name:{
+        fontSize:16,
         fontWeight: 'bold'
     },
     description: {
-        fontSize: 14,
-        fontWeight: 'bold'
+        fontSize: 16,
+        fontWeight:'bold',
+        marginTop: 5
     },
-    price: {
+    price:{
         fontSize: 16,
         fontWeight: 'bold',
         marginTop: 5
     },
-    menuList: {
+    menuList:{
         flexGrow: 1
-    },
-});
+    }
+
+})
 
 export default PesquisaProduto;
